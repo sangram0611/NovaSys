@@ -8,7 +8,7 @@ Built in plain Node.js with zero runtime dependencies. No `chalk`, no `commander
 
 ## Table of Contents
 
-1. [What Is SysScope?](#what-is-sysscope)
+1. [What Is NovaSys?](#what-is-Novasys)
 2. [Why It Exists](#why-it-exists)
 3. [Features](#features)
 4. [Installation](#installation)
@@ -26,9 +26,9 @@ Built in plain Node.js with zero runtime dependencies. No `chalk`, no `commander
 
 ---
 
-## What Is SysScope?
+## What Is NovaSys?
 
-SysScope is a two-in-one developer CLI:
+NovaSys is a two-in-one developer CLI:
 
 | Capability | What it does |
 |---|---|
@@ -41,8 +41,8 @@ Think of it as a small, honest utility: it tells you about the machine you're on
 
 Two everyday developer needs, solved simply:
 
-- **"What does this machine look like?"** — Useful when filing a bug report, onboarding a new environment, or sanity-checking a CI runner. Instead of running five different commands (`uname -a`, `node -v`, `free -h`, `whoami`, `echo $PATH`...) and copy-pasting the output, `sysscope sysinfo` gives you one clean report.
-- **"I want a safe scratch space for code files."** — Sometimes you want a tool to manage files programmatically (e.g. as part of a larger automation) without worrying that a typo in a path will write or delete something important elsewhere on disk. SysScope's `files` command is that scratch space — every operation is checked against the sandbox boundary before it touches the filesystem.
+- **"What does this machine look like?"** — Useful when filing a bug report, onboarding a new environment, or sanity-checking a CI runner. Instead of running five different commands (`uname -a`, `node -v`, `free -h`, `whoami`, `echo $PATH`...) and copy-pasting the output, `NovaSys sysinfo` gives you one clean report.
+- **"I want a safe scratch space for code files."** — Sometimes you want a tool to manage files programmatically (e.g. as part of a larger automation) without worrying that a typo in a path will write or delete something important elsewhere on disk. NovaSys's `files` command is that scratch space — every operation is checked against the sandbox boundary before it touches the filesystem.
 
 ## Features
 
@@ -53,7 +53,7 @@ Two everyday developer needs, solved simply:
 - Home directory and username
 - Memory: total, used, free, and used-percentage
 - CPU: model name, core count, clock speed
-- Exactly **four** environment variables — `PATH`, `HOME` (or `USERPROFILE` on Windows), `SHELL`, `NODE_ENV` — and nothing else. SysScope never iterates over your full environment.
+- Exactly **four** environment variables — `PATH`, `HOME` (or `USERPROFILE` on Windows), `SHELL`, `NODE_ENV` — and nothing else. NovaSys never iterates over your full environment.
 - **Crash-proof by design**: if any single piece of information fails to load (this happens more than you'd think — e.g. `os.userInfo()` throws in some Docker containers with no associated user), that one field falls back to a placeholder instead of taking down the whole report.
 
 ### File Management (`files`)
@@ -78,10 +78,10 @@ Two everyday developer needs, solved simply:
 
 ```bash
 # 1. Get the code
-git clone <your-repo-url> sysscope
-cd sysscope
+git clone <your-repo-url> NovaSys
+cd NovaSys
 
-# 2. There's nothing to install — SysScope has zero dependencies —
+# 2. There's nothing to install — NovaSys has zero dependencies —
 #    but running this keeps npm tooling happy and sets up node_modules/.bin if you add anything later.
 npm install
 ```
@@ -94,49 +94,49 @@ node src/index.js sysinfo
 
 # Option B — install it as a global command on your machine
 npm link
-sysscope sysinfo
+NovaSys sysinfo
 ```
 
-From here on, this README uses `sysscope` as shorthand for either `sysscope` (if linked) or `node src/index.js` (if not).
+From here on, this README uses `NovaSys` as shorthand for either `NovaSys` (if linked) or `node src/index.js` (if not).
 
 ## Quick Start
 
 ```bash
-sysscope sysinfo                 # see your system report
-sysscope files list               # see what's in the workspace
-sysscope files create hello.js --content "console.log('hi');"
-sysscope files read hello.js
-sysscope files delete hello.js
+NovaSys sysinfo                 # see your system report
+NovaSys files list               # see what's in the workspace
+NovaSys files create hello.js --content "console.log('hi');"
+NovaSys files read hello.js
+NovaSys files delete hello.js
 ```
 
 ## Command Reference
 
 | Command | Arguments | Flags | Description |
 |---|---|---|---|
-| `sysscope sysinfo` | — | — | Prints the full system report. |
-| `sysscope files list` | — | — | Lists every file in the workspace with size and last-modified date. |
-| `sysscope files create <filename>` | filename (required) | `--content "text"` | Creates a new file. Fails if the file already exists. |
-| `sysscope files read <filename>` | filename (required) | — | Prints the file's contents. |
-| `sysscope files update <filename>` | filename (required) | `--content "text"` | Overwrites the file's contents. Fails if the file doesn't exist yet. |
-| `sysscope files delete <filename>` | filename (required) | `--force` | Deletes the file. Prompts for confirmation unless `--force` is passed. |
-| `sysscope help` | — | — | Shows usage help. |
+| `NovaSys sysinfo` | — | — | Prints the full system report. |
+| `NovaSys files list` | — | — | Lists every file in the workspace with size and last-modified date. |
+| `NovaSys files create <filename>` | filename (required) | `--content "text"` | Creates a new file. Fails if the file already exists. |
+| `NovaSys files read <filename>` | filename (required) | — | Prints the file's contents. |
+| `NovaSys files update <filename>` | filename (required) | `--content "text"` | Overwrites the file's contents. Fails if the file doesn't exist yet. |
+| `NovaSys files delete <filename>` | filename (required) | `--force` | Deletes the file. Prompts for confirmation unless `--force` is passed. |
+| `NovaSys help` | — | — | Shows usage help. |
 
-**About `--content`:** if you don't pass `--content`, SysScope checks whether anything was piped into it on `stdin`. If so, it uses that as the file's content. If neither is provided, it creates/updates the file as empty.
+**About `--content`:** if you don't pass `--content`, NovaSys checks whether anything was piped into it on `stdin`. If so, it uses that as the file's content. If neither is provided, it creates/updates the file as empty.
 
 ```bash
 # These two are equivalent:
-sysscope files create notes.md --content "# Hello"
-echo "# Hello" | sysscope files create notes.md
+NovaSys files create notes.md --content "# Hello"
+echo "# Hello" | NovaSys files create notes.md
 ```
 
 ## Usage Examples
 
 ### Checking your system
 ```bash
-$ sysscope sysinfo
+$ NovaSys sysinfo
 
 ────────────────────────────────────────
-  SysScope — System Information
+  NovaSys — System Information
 ────────────────────────────────────────
 
   Operating System
@@ -171,37 +171,37 @@ $ sysscope sysinfo
 
 ### Managing files
 ```bash
-$ sysscope files create demo.js --content "console.log('hello');"
+$ NovaSys files create demo.js --content "console.log('hello');"
 ✔ Created demo.js (23 B)
-ℹ Path: /path/to/sysscope/workspace/demo.js
+ℹ Path: /path/to/NovaSys/workspace/demo.js
 
-$ sysscope files list
+$ NovaSys files list
 ────────────────────────────────────────
-  SysScope — Workspace Files
+  NovaSys — Workspace Files
 ────────────────────────────────────────
   demo.js               23 B  6/21/2026, 10:02:11 AM
   welcome.md           293 B  6/20/2026, 8:18:16 AM
 
-$ sysscope files read demo.js
+$ NovaSys files read demo.js
 ────────────────────────────────────────
   File: demo.js
 ────────────────────────────────────────
 console.log('hello');
 
-$ sysscope files delete demo.js
+$ NovaSys files delete demo.js
 ⚠  Delete "demo.js" permanently? (y/N) y
 ✔ Deleted demo.js
 ```
 
 ### What happens if you try to escape the sandbox
 ```bash
-$ sysscope files read ../../etc/passwd
+$ NovaSys files read ../../etc/passwd
 ✘ "../../etc/passwd" resolves outside the workspace directory and was blocked.
 
-$ sysscope files create /tmp/evil.js --content "x"
+$ NovaSys files create /tmp/evil.js --content "x"
 ✘ Absolute paths are not allowed. Use a name relative to the workspace.
 
-$ sysscope files create payload.exe --content "x"
+$ NovaSys files create payload.exe --content "x"
 ✘ Extension ".exe" is not permitted for write operations. Allowed: .js, .mjs, .cjs, .ts, ...
 ```
 
@@ -229,7 +229,7 @@ Here's what happens, end to end, when you run a command:
 ## Project Architecture
 
 ```
-sysscope/
+NovaSys/
 ├── src/
 │   ├── index.js                # CLI entry point: parses args, routes commands, catches errors
 │   ├── system/
@@ -266,7 +266,7 @@ A few deliberate choices, and the reasoning behind them:
 - **Zero dependencies.** This is a tool that reads system internals and writes to disk — exactly the kind of tool where "what packages does this pull in, and do I trust them?" is a fair question to ask. An empty `dependencies` field in `package.json` is a small but real signal that there's no extra surface area to worry about.
 - **Data and display are separate.** `systemInfo.js` and `fileManager.js` only ever return values or throw — they never print. This single decision is what makes two of the harder requirements (*"never crash"* and *"return structured JSON internally"*) fall out naturally, because the data layer doesn't have to think about the terminal at all.
 - **One gatekeeper, not many guards.** Rather than checking "is this path safe?" in five different places, there's exactly one function (`resolveWorkspacePath`) that every write or read funnels through. One function to get right, one function to test, one place to look if something's ever wrong.
-- **When in doubt, don't.** If there's no `--force` flag on a delete, or no terminal to prompt a user in, SysScope doesn't guess "yes" — it does nothing destructive and tells you why.
+- **When in doubt, don't.** If there's no `--force` flag on a delete, or no terminal to prompt a user in, NovaSys doesn't guess "yes" — it does nothing destructive and tells you why.
 
 ## Error Handling
 
@@ -280,16 +280,16 @@ A few deliberate choices, and the reasoning behind them:
 | A single `sysinfo` field fails to load (e.g. no CPU info available) | That field shows a placeholder; the rest of the report still prints |
 | Any other unexpected error (e.g. a permissions error from the OS) | Generic "Unexpected error: ..." message, no stack trace shown |
 
-In every case, the process exits with status code `1` on failure and `0` on success, so SysScope behaves correctly if you ever script around it.
+In every case, the process exits with status code `1` on failure and `0` on success, so NovaSys behaves correctly if you ever script around it.
 
 ## Security Considerations
 
 - **The sandbox can't be moved.** The `workspace/` directory's location is calculated from the source file's own location (using `import.meta.url`), not from your current working directory. Running the CLI from a different folder, or with a different shell `cd`, doesn't change which directory is protected.
-- **Path traversal is checked properly, not guessed at.** SysScope doesn't just look for the string `".."` in the input — it resolves the full absolute path and then asks Node's own `path.relative()` whether that result is still inside the workspace. Absolute paths and filenames containing null bytes are rejected immediately, before any resolution happens.
+- **Path traversal is checked properly, not guessed at.** NovaSys doesn't just look for the string `".."` in the input — it resolves the full absolute path and then asks Node's own `path.relative()` whether that result is still inside the workspace. Absolute paths and filenames containing null bytes are rejected immediately, before any resolution happens.
 - **Writes are limited to code/text files.** The extension allow-list means `create` and `update` can't be used to drop arbitrary binaries (`.exe`, `.sh`-disguised-as-something-else, etc.) into the sandbox.
-- **Deleting always asks first — unless you explicitly say otherwise.** And if there's no interactive terminal to ask in (for example, the command is running inside a script with no TTY attached), SysScope refuses to guess. It will not auto-confirm; you must pass `--force`.
+- **Deleting always asks first — unless you explicitly say otherwise.** And if there's no interactive terminal to ask in (for example, the command is running inside a script with no TTY attached), NovaSys refuses to guess. It will not auto-confirm; you must pass `--force`.
 - **The environment is read narrowly.** `sysinfo` reads exactly four named variables. It never loops over `process.env` as a whole, so anything else sitting in your environment (API keys, tokens, etc.) is never collected, displayed, or logged.
-- **No networking, no persistence, no shell execution.** SysScope only touches `node:os`, `node:fs`, and `process.env` for reading, and only ever writes inside `workspace/`. It doesn't spawn child processes, open any sockets, or write to any startup/profile files.
+- **No networking, no persistence, no shell execution.** NovaSys only touches `node:os`, `node:fs`, and `process.env` for reading, and only ever writes inside `workspace/`. It doesn't spawn child processes, open any sockets, or write to any startup/profile files.
 
 ## Try It Yourself
 
@@ -297,14 +297,15 @@ A few commands to verify the safety claims above for yourself:
 
 ```bash
 # This should be blocked:
-sysscope files read ../../etc/passwd
+NovaSys files read ../../etc/passwd
 
 # This should also be blocked:
-sysscope files create /tmp/whatever.js --content "test"
+NovaSys files create /tmp/whatever.js --content "test"
 
 # This should ask for confirmation, not delete immediately:
-sysscope files create scratch.txt --content "temp"
-sysscope files delete scratch.txt
+NovaSys files create scratch.txt --content "temp"
+NovaSys files delete scratch.txt
 ```
 
+<img width="2400" height="600" alt="image" src="https://github.com/user-attachments/assets/d7607f7e-3e3b-4076-bf19-6cbda30f4e65" />
 
