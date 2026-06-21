@@ -307,20 +307,4 @@ sysscope files create scratch.txt --content "temp"
 sysscope files delete scratch.txt
 ```
 
-## FAQ
 
-**Q: Can I point the workspace at a different folder?**
-A: Not currently — the workspace is intentionally fixed to `<project-root>/workspace` so the safety guarantees in this README always hold. If you need a different location, change `WORKSPACE_DIR` in `src/utils/validator.js`.
-
-**Q: Why doesn't `sysinfo` show my full environment variables?**
-A: By design. Only `PATH`, `HOME`/`USERPROFILE`, `SHELL`, and `NODE_ENV` are read, so the tool can't accidentally leak secrets that might be sitting in other environment variables.
-
-**Q: The output has no colors when I pipe it to a file — is that a bug?**
-A: No, that's intentional. Colors only render when connected to a real terminal (`isTTY`), so logs and redirected output stay clean and readable.
-
-**Q: Can I add my own file extension to the allow-list?**
-A: Yes — edit the `ALLOWED_EXTENSIONS` set near the top of `src/files/fileManager.js`.
-
-## License
-
-MIT — use it, modify it, learn from it.
