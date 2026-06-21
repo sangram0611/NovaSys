@@ -1,4 +1,4 @@
-# SysScope
+# NOVASYS
 
 **A professional command-line tool for developer system auditing and safe, sandboxed code file management.**
 
