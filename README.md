@@ -20,9 +20,6 @@ Built in plain Node.js with zero runtime dependencies. No `chalk`, no `commander
 10. [Design Strategy](#design-strategy)
 11. [Error Handling](#error-handling)
 12. [Security Considerations](#security-considerations)
-13. [Try It Yourself](#try-it-yourself)
-14. [FAQ](#faq)
-15. [License](#license)
 
 ---
 
