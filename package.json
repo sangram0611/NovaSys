@@ -1,0 +1,29 @@
+{
+  "name": "sysscope",
+  "version": "1.0.0",
+  "description": "A professional CLI for system/environment auditing and safe, sandboxed file CRUD operations.",
+  "type": "module",
+  "main": "src/index.js",
+  "bin": {
+    "sysscope": "./src/index.js"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "sysinfo": "node src/index.js sysinfo",
+    "files": "node src/index.js files list"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT",
+  "keywords": [
+    "cli",
+    "system-info",
+    "file-management",
+    "developer-tools",
+    "security-audit",
+    "hackathon"
+  ],
+  "author": "",
+  "dependencies": {}
+}
